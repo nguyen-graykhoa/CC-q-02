@@ -62,7 +62,7 @@ group :development do
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "rails-controller-testing"
-
+  gem 'cowsay', '~> 0.3.0'
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 

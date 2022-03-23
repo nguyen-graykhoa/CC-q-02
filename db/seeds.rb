@@ -5,3 +5,30 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+User.destroy_all
+
+PASSWORD = "123"
+super_user = User.create(
+    first_name: "Admin",
+    last_name: "User",
+    email: "admin@user.com",
+    password: PASSWORD,
+    is_admin: true
+)
+
+5.times do
+    first_name = Faker::Name.first_name
+    last_name = Faker::Name.last_name
+    User.create(
+        first_name: first_name,
+        last_name: last_name,
+        email: "#{first_name}@#{last_name}.com",
+        password: PASSWORD
+    )
+end
+
+users = User.all
+
+
+puts Cowsay.say("Generated #{users.count} users", :koala)
