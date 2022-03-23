@@ -9,7 +9,7 @@ RSpec.describe IdeaFactoriesController, type: :controller do
 
         it "requires setting an instance variable with a new factory idea" do        
             get(:new)
-            expect(assigns(:factory_idea)).to(be_a_new(FactoryIdea))
+            expect(assigns(:idea_factory)).to(be_a_new(IdeaFactotry))
         end # new instance var       
 
     end # new suite

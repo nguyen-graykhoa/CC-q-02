@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+  get 'idea_factories/index'
+  get 'idea_factories/new'
+  get 'idea_factories/show'
+  get 'idea_factories/edit'
   get 'users/new'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  
+  get('/',{to: "idea_factories#index", as: :home})
+  resources :idea_factotries
 
-  # Defines the root path route ("/")
-  # root "articles#index"
   resources :users
+
+  resource :sessions, only: [:new, :destroy, :create]
+
+  root "idea_factories#index"
 end
