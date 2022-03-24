@@ -1,0 +1,25 @@
+
+<% if @idea_factory.errors.any? %>
+    <ul>
+        <% @idea_factory.errors.full_messages.each do |msg| %>
+            <li>
+                <%= msg %>
+            </li>
+        <% end %>
+    </ul>
+<% end %>
+<%= form_with(model: @idea_factory, url: idea_factories_path ) do |form| %>
+    <div>
+        <%= form.label :title %>
+        <br>
+        <%= form.text_field :title, class: 'form-control' %>
+    </div>
+    <div>
+        <%= form.label :description %>
+        <br>
+        <%= form.text_area :description, class: 'form-control' ,cols: 50, rows: 5 %>
+    </div>
+    <div class="mt-2">
+        <%= form.submit %>
+    </div>
+<% end %>

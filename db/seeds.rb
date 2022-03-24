@@ -30,5 +30,22 @@ end
 
 users = User.all
 
+50.times do
+    i_f = IdeaFactory.create(
+        title: Faker::Hacker.say_something_smart,
+        description: Faker::ChuckNorris.fact,
+        user: users.sample
+    )
+
+    if i_f.valid?
+        rand(1..5).times do
+        Review.create(body: Faker::Hacker.say_something_smart, idea_factory: i_f, user: users.sample)
+        end
+    end
+end
+
+idea_factories = IdeaFactory.all 
+
 
 puts Cowsay.say("Generated #{users.count} users", :koala)
+puts Cowsay.say("Generated #{idea_factories.count} idea_factories", :frogs)

@@ -1,2 +1,27 @@
-<h1>IdeaFactories#edit</h1>
-<p>Find me in app/views/idea_factories/edit.html.erb</p>
+
+   
+<h1 class="text-center">Idea Factory Edit Page</h1>
+<div class="container">
+    <% if @idea_factory.errors.any? %>
+        <ul>
+            <% @idea_factory.errors.full_messages.each do |msg| %>
+                <li>
+                    <%= msg %>
+                </li>
+            <% end %>
+        </ul>
+    <% end %>
+    <%= form_with(model: @idea_factory, url: idea_factory_path, method: :patch ) do |form| %>
+        <div>
+            <%= form.label :title %>
+            <br>
+            <%= form.text_field(:title, :style => "width:1303px;")  %>
+        </div>
+        <div>
+            <%= form.label :description %>
+            <br>
+            <%= form.text_area :description, cols: 152, rows: 5 %>
+        </div>
+        <%= form.submit %>
+    <% end %>
+</div>

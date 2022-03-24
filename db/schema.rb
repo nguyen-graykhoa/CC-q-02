@@ -10,17 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_23_173446) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_24_001822) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "idea_factotries", force: :cascade do |t|
+  create_table "idea_factories", force: :cascade do |t|
     t.string "title"
-    t.string "description"
-    t.bigint "user_id", null: false
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_idea_factotries_on_user_id"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_idea_factories_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "idea_factory_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["idea_factory_id"], name: "index_likes_on_idea_factory_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "body"
+    t.bigint "user_id", null: false
+    t.bigint "idea_factory_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["idea_factory_id"], name: "index_reviews_on_idea_factory_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -34,5 +53,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_23_173446) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "idea_factotries", "users"
+  add_foreign_key "idea_factories", "users"
+  add_foreign_key "likes", "idea_factories"
+  add_foreign_key "likes", "users"
+  add_foreign_key "reviews", "idea_factories"
+  add_foreign_key "reviews", "users"
 end

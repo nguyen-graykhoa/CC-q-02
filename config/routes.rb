@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   get 'users/new'
   
   get('/',{to: "idea_factories#index", as: :home})
-  resources :idea_factotries
+
+  resources :idea_factories do
+    resources :reviews, only: [:create, :destroy]
+    resources :likes, shallow: true, only: [:create, :destroy]
+    get :liked, on: :collection     
+  end
 
   resources :users
 
