@@ -6,8 +6,27 @@
     
     </p>
     <p>
-        <small>Created at: <%= @idea_factory.created_at %></small>
-        <small><u>- By: <%= @idea_factory.user.full_name%></u></small>
+        <div style="display: flex; justify-content: space-between">
+            <span>
+                <small><u>By: <%= @idea_factory.user.full_name %></u></small>
+                <span>
+                    <small style="display: inline;">
+                    
+                        <% if @like.present? %>
+                            
+                            <%= button_to "Unlike", like_path(@like), method: :delete, form: {style: 'display:inline-block;'} %>
+                        <% else %>
+                          
+                            <%= button_to 'Like', idea_factory_likes_path(@idea_factory.id), method: :post, form: {style: 'display:inline-block;'} %>
+                        <% end %>
+                    </small>
+                </span>                
+            </span>
+            <span>
+                <small>Members: <%= @member_count %></small> |
+                <small>Likes: <%= @like_count %></small>
+            </span>
+        </div>
         <% if can? :crud, @idea_factory %>
             <div class="d-flex">
                 <span><%= button_to 'Edit', edit_idea_factory_path(@idea_factory), method: :get %></span>
@@ -15,13 +34,7 @@
             </div>    
         <% end %>  
 
-        <small>
-            <% if @like.present? %>
-                <%= button_to "Unlike", like_path(@like), method: :delete %>
-            <% else %>
-                <%= button_to 'Like', idea_factory_likes_path(@idea_factory.id), method: :post %>
-            <% end %>
-        </small>
+ 
     </p>
 
     <h4>Reviews</h4>
@@ -29,7 +42,7 @@
         <% @reviews.each do |review| %>
             <li>
                 <%= review.body%>
-                <small>Review <%= time_ago_in_words(review.created_at) %> ago by <label>Created by: <%= review.user.full_name%> </label>
+                <small>Review <%= time_ago_in_words(review.created_at) %> ago by <label>Created by: <u> <%= review.user.full_name%></u> </label>
                 </small>
                 <% if can? :crud, review %>
                     <%= button_to "Delete", idea_factory_review_path(@idea_factory.id, review.id), method: :delete %>

@@ -26,6 +26,8 @@ class IdeaFactoriesController < ApplicationController
     @reviews = @idea_factory.reviews
     @review = Review.new  
     @like = @idea_factory.likes.find_by(user: current_user)
+    @like_count = @idea_factory.likes.count
+    @member_count = User.all.count
   end
 
   def edit
