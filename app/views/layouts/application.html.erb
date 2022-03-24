@@ -61,10 +61,17 @@
           <% end %>
         </li>
 
+        <li class="nav-item">
+           <% if(user_signed_in?) %>
+              <%= button_to "Create New Idea", idea_factories_new_path, class: "nav-link btn btn-outline-info" %>
+           <% end %> 
+        </li>
+
       </ul>
     </div>
   </div>
 </nav>
+
 
     <% flash.each do |type, message| %>
        <div class="alert alert-info" role=alert>
